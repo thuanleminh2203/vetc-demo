@@ -1,0 +1,90 @@
+server:
+  port: 8080
+
+management:
+  endpoint:
+    health:
+      show-components: always
+      show-details: never
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      auto-index-creation: true
+      database: vetc_dev
+      uri: mongodb://vetc:yns3rG4Q8npfYQJE@207.46.234.134:27717/vetc_dev
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+mb:
+  oauth2:
+    paymentHub:
+      baseUrl: https://paymenthub-api-test.azurewebsites.net/
+  #      merchant:
+  #        code: MAZHOMEBOX
+  #        secret: NzgwOWY2ZTktMzNjYy00MmJkLTgwNGQtODYwZTdkYjY5YWRj
+  #    url: https://api-sandbox.mbbank.com.vn/oauth2/v1/token
+  sso:
+    info:
+      url: https://171.244.49.19/sso1/api
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 300000
+        read-timeout: 300000
+        loggerLevel: full
+logging:
+  level:
+    com:
+      baeldung:
+        cloud:
+          openfeign:
+            client: INFO
+    org:
+      springframework:
+        ws:
+          client:
+            MessageTracing:
+              sent: DEBUG
+              received: TRACE
+          server:
+            MessageTracing:
+              sent: DEBUG
+              received: TRACE
+
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG
+jwt:
+  secret: VmVuZXNhSVQhQDIwMjBTZWNyZXRrZXlTcGFBbmRHeW1KV1Q=
+  timetoken: 1800
+
+vetc:
+  merchantCode: PHZVETC
+  merchantSecret: YTVhYTk4MzgtMWRmYS00YTdlLTg0MWMtMmQ2NmNmNzEzNGZj
+  checksumKey: VGh1IHBow60gdOG7sSDEkeG7mW5nIFZFVEM=
+  username: gw_mb1
+  password: 123
+  publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7ubqedm3vKcgXxhNVc81INdy/05Lw0rZKy26W7pj/p9MapKBPByUUd1ZzD1LofeiolElv/ar1M9A1KjzVwMKQmFnz2/rR1UAJMdVz+JljgEF+LPSC4Ypq7RB1kJxME8NRhNG0fx68xqtqldH+f9V2xB8UgFks5zOavG1idKtrLk0yPeW7Be+SagCYwB6I7FjQz/CWpt65fiDJ3b48gk6ZIc8CtPxDTeBhZ07hnVMOLAWKBO7owrSvVwZPZ29cbkgS2DdF3YeZBm4QZUqlJei4Rl1C349FDvm4AaXlk8Z3xxCdY3+yZ1J3lY8+/9+lmXpfYjQVN6aKLvcWxWjPtmIKwIDAQAB
+  api: https://ws-bank-uat.vetc.com.vn/VETC_BIDV/RechargeGWService?wsdl
+mini-app:
+  publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp/ru+D287PiBQMPCqatGR4iHDWYcSjqZ8OVSujdhpAti8gQGP7tB2ROtKCAMyIg1Jazax9hemE5wmrjniTb6b6XFeW9HmP2jTEHRlJ9BLfr42QT56vPoypNEgx3HHgI05GyE/cnfmyI72tq/uCmKim31XexldVi+Tv/oP7qINVTHDD6M+wy0E9haxXweWM/kYK2rdkgbI41H1F3+78S7sdMoJl3A92g6T93XtjKNhL6r/RkYr6OzDkQ/TVj7ORu8fBDVhpidM06aKQQFfooB9nPoMdtyHmGtQyhiqlDzODk1gTFat5i6pmh9IUtnf7Oo5aQ3/vO3h2eVUhj0yqZPVwIDAQAB
+  privateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCn+u74Pbzs+IFAw8Kpq0ZHiIcNZhxKOpnw5VK6N2GkC2LyBAY/u0HZE60oIAzIiDUlrNrH2F6YTnCauOeJNvpvpcV5b0eY/aNMQdGUn0Et+vjZBPnq8+jKk0SDHcceAjTkbIT9yd+bIjva2r+4KYqKbfVd7GV1WL5O/+g/uog1VMcMPoz7DLQT2FrFfB5Yz+Rgrat2SBsjjUfUXf7vxLux0ygmXcD3aDpP3de2Mo2Evqv9GRivo7MORD9NWPs5G7x8ENWGmJ0zTpopBAV+igH2c+gx23IeYa1DKGKqUPM4OTWBMVq3mLqmaH0hS2d/s6jlpDf+87eHZ5VSGPTKpk9XAgMBAAECggEADSq1Ko4kTerYrsvpaUU8mATSmTFEzGi1glVnW6NVqvcdhVzdZId4DNzm+LsyZVGP4OkgqQODvqp/VxFhTLcbgD7dMLyRPyO6dhK+q8ij4kfG07P5JvqBZ8eNWj2uSuLfZHxBHGeDeHSBfpEg7/2Jl3ow/nC2LzGKkUSr3rrvTEa9WYQJgvRACfm0NXAhVJxSkD+t16dqGCEQzyePQ3xF9GKBWIrPeByZpkJsiIv3wSqmFsegZDy1Bijqfu/ApeV+iHmgC9FUeqi99Q9aAiNiyFM56LN6OEDmeI1jHJXiFSu6EoiPuG8VHZd0IJlrqx1zM8s/1ciPjrVt6zCtHh3ISQKBgQDakovPJjPDeYFMlQxY2PvoyAAgFsqPEVBYTtXgcMzRqowKES0p1VPlkoUTDtOX/aoGNezIhQIznlKnIFbinPKpaShMnK4Rtkg0uvD/ASVvxahdB1+UqG9tBE4dV81868OAb88WKMAMHL1Bl/qPOPfWyfnmoRo1m3OC9YYKb6P2dQKBgQDEvpmfodQn9TODpGJ6KZTu9bT3GULBRHaY5fFy0FJKxjiHh8BpidTajWb7OVxzzTpCiT4x+T1qwzhgaxbymo8DufIgfQJNGJjtyYFbCNwtigxd3rdSVgvUbk1bAG+xv6MLaw3vZBkj6hIBYHlY0p0B1l9vXYfpUJ6shM9/uE3tGwKBgCAWRWoKrKy0qLOqad6dNBYPTl1nmyL3orjkEefaB2d8RwSvUtcCV0erg9exZIS6m3w/7FvfktwrEO0yBS9NZR5TrrPYiIFXJjB/hSOacnl/JeFKVNDJDVqOuDz8h9Ef91pij58sKk1c5re7bPAbp96jVglyexuFj6aZDq13iDWFAoGAEy4VoedP3HleBUZgR1KIb2dKthAjXt4CxdMc37mJXDrIxgWo72D9fDTuxi0IY02tkVD53DtVDnRrqZKnEQ2aRZ26CgrFz6hHOF89mhdaB6J+pCQTMRasXpBGQEnhma16AqH0INNcVBD8ol+6VLtrjQNOGHhAyLEQVvc3l1brWeMCgYEAvuT+6qbC9YNPM4yeJZ0TcrX0nw/Gnl070kqA4+5mjDmTjUwNmQl80+tmuR1+Zexj6t4jy/dVSMW/lVeFUt/qEbwCUlNxbY9fxRemA6SO9RuHYudXztUjyAUVdHbJM2S8TknwjIYjf4bacDUpvEP4e2sVbuv5mIVP/C/5ytk5IMs=
+proxy:
+  host: proxy.mb-innovationlab.com
+  port: 28906
+  user: thuanlm
+  password: 4hvXpvYKjJWLuqwF
+time:
+  schedule:
+    #4h
+    fixedDelay: 14400000
+    initialDelay: 14400000
